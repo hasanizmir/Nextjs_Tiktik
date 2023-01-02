@@ -4,7 +4,7 @@ import { BiCommentX } from "react-icons/bi";
 
 interface IProps {
   text: string;
-  type: string;
+  type?: string;
 }
 
 const NoResult = ({ text, type }: IProps) => {
