@@ -39,8 +39,9 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                   width={62}
                   height={62}
                   className="rounded-full"
-                  src={post.postedBy.image}
+                  src={post?.postedBy?.image}
                   alt="profile-photo"
+                  referrerPolicy="no-referrer"
                 />
               </>
             </Link>
@@ -49,11 +50,11 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
             <Link href="/">
               <div className="flex items-center gap-2">
                 <p className="flex gap-2 items-center md:text-md font-bold text-primary">
-                  {post.postedBy.userName}
+                  {post?.postedBy?.userName}
                   <GoVerified className="text-blue-400 text-md" />
                 </p>
                 <p className="capitalize font-medium text-gray-500 text-xs hidden md:block">
-                  {post.postedBy.userName}
+                  {post?.postedBy?.userName}
                 </p>
               </div>
             </Link>
@@ -67,13 +68,12 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
           onMouseLeave={() => setIsHover(false)}
           className="rounded-3xl"
         >
-          <Link href="/">
+          <Link href={`/detail/${post._id}`}>
             <video
               loop
               ref={videoRef}
               className="w-[200px] lg:w-[600px] h-[300px] md:h-[400px] lg:h-[530px] rounded-xl cursor-pointer bg-gray-100"
               src={post.video.asset.url}
-              onClick={onVideoPress}
             />
           </Link>
 
