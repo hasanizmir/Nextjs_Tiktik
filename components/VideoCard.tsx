@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,9 +24,15 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
       setPlaying(false);
     } else {
       videoRef?.current?.play();
-      setPlaying(true)
+      setPlaying(true);
     }
-  }
+  };
+
+  useEffect(() => {
+    if (videoRef?.current) {
+      videoRef.current.muted = isVideoMuted;
+    }
+  }, [isVideoMuted]);
 
   return (
     <div className="flex flex-col border-b-2 border-gray-200 pb-6">
@@ -53,8 +59,8 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
                   {post?.postedBy?.userName}
                   <GoVerified className="text-blue-400 text-md" />
                 </p>
-                <p className="capitalize font-medium text-gray-500 text-xs hidden md:block">
-                  {post?.postedBy?.userName}
+                <p className="lowercase font-medium text-gray-500 text-xs hidden md:block">
+                  {post?.postedBy?.userName.replaceAll(' ', '')}
                 </p>
               </div>
             </Link>
@@ -81,20 +87,20 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
             <div className="absolute bottom-6 cursor-pointer left-8 md:left-14 lg:left-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] p-3">
               {playing ? (
                 <button onClick={onVideoPress}>
-                  <BsFillPauseFill className="text-black text-2xl lg:text-4xl"/>
+                  <BsFillPauseFill className="text-black text-2xl lg:text-4xl" />
                 </button>
               ) : (
                 <button onClick={onVideoPress}>
-                  <BsFillPlayFill className="text-black text-2xl lg:text-4xl"/>
+                  <BsFillPlayFill className="text-black text-2xl lg:text-4xl" />
                 </button>
               )}
               {isVideoMuted ? (
                 <button onClick={() => setIsVideoMuted(false)}>
-                  <HiVolumeOff className="text-black text-2xl lg:text-4xl"/>
+                  <HiVolumeOff className="text-black text-2xl lg:text-4xl" />
                 </button>
               ) : (
                 <button onClick={() => setIsVideoMuted(true)}>
-                  <HiVolumeUp className="text-black text-2xl lg:text-4xl"/>
+                  <HiVolumeUp className="text-black text-2xl lg:text-4xl" />
                 </button>
               )}
             </div>
