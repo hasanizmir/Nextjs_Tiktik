@@ -36,11 +36,11 @@ const Comments = ({
       <div className="overflow-scroll lg:h-[475px]">
         {comments?.length ? (
           comments.map((item, idx) => (
-            <>
+            <div key={idx}>
               {allUsers.map(
-                (user: IUser) =>
+                (user: IUser, index:number) =>
                   user._id === (item.postedBy._id || item.postedBy._ref) && (
-                    <div className="p-2 items-center border-b-2" key={idx}>
+                    <div className="p-2 items-center border-b-2" key={'item' + index}>
                       <Link href={`/profile/${user._id}`}>
                         <div className="flex items-start gap-3">
                           <div className="w-8 h-8">
@@ -69,7 +69,7 @@ const Comments = ({
                     </div>
                   )
               )}
-            </>
+            </div>
           ))
         ) : (
           <NoResult text="No comments yet!" type="comments" />
