@@ -195,3 +195,23 @@ export const topicPostsQuery = (topic: string | string[]) => {
 
   return query;
 };
+
+export const singlePageQuery = (slug: string | string[]) => {
+  const query = `*[_type == "page" && slug.current == '${slug}'] {
+    _id,
+    name,
+    slug,
+    components[]->{
+      ...,
+      _type == 'hero' => {
+        banners[]->{..., image{asset->{...}}},
+      },
+      defined(image) => {"imageHsn":image.asset->url},
+      _type == 'banner' => {
+        "imageUrl": image.asset->url
+      },
+    }
+  }`;
+
+  return query;
+};

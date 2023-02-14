@@ -13,5 +13,16 @@ export default {
       title: 'Comment',
       type: 'string',
     },
+    {
+      name: 'comment2',
+      title: 'Comment2',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'user'}, {type: 'post'}],
+        },
+      ],
+    },
   ],
 }
